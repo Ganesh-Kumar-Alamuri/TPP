@@ -59,7 +59,7 @@ export default function AddRole() {
     happens: "",
     experience: 0,
     optionalSkills: [],
-    mandatorySkills:[],
+    mandatorySkills: [],
     qualification: [],
     shift: "",
     salary: 0,
@@ -79,7 +79,7 @@ export default function AddRole() {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5000/api/v1/company/company/" + id,
+          "https://tpp-backend-3f7y.onrender.com/api/v1/company/company/" + id,
           {
             headers: {
               authorization: JSON.parse(localStorage.getItem("user")).token,
@@ -87,7 +87,7 @@ export default function AddRole() {
           }
         );
         const extraRes = await axios.get(
-          "http://localhost:5000/api/v1/extra/all",
+          "https://tpp-backend-3f7y.onrender.com/api/v1/extra/all",
           {
             headers: {
               authorization: JSON.parse(localStorage.getItem("user")).token,
@@ -144,7 +144,7 @@ export default function AddRole() {
   const handleAddRole = async () => {
     try {
       const newRole = await axios.patch(
-        "http://localhost:5000/api/v1/company/" + id,
+        "https://tpp-backend-3f7y.onrender.com/api/v1/company/" + id,
         { roles: [role] },
         {
           headers: {
@@ -153,13 +153,13 @@ export default function AddRole() {
         }
       );
       const skilldata = await axios.patch(
-        "http://localhost:5000/api/v1/extra/skills",
+        "https://tpp-backend-3f7y.onrender.com/api/v1/extra/skills",
         {
           data: [
             ...new Set([
               ...role.mandatorySkills,
               ...role.optionalSkills,
-              
+
               ...skillsList,
             ]),
           ],
@@ -170,7 +170,7 @@ export default function AddRole() {
           },
         }
       );
-      toast.success("Role Added Successfully")
+      toast.success("Role Added Successfully");
       navigate(`/EditEmpanelled/${id}?edit=true`);
       console.log(newRole);
     } catch (error) {
@@ -468,7 +468,10 @@ export default function AddRole() {
                     })
                   }
                   renderInput={(params) => (
-                    <TextField {...params} label="Mandatory Skill Requirement" />
+                    <TextField
+                      {...params}
+                      label="Mandatory Skill Requirement"
+                    />
                   )}
                 />
               </Grid>

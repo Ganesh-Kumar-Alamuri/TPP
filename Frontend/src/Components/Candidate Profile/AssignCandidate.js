@@ -23,7 +23,7 @@ export default function AssignCandidate() {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5000/api/v1/company/companyType?companyType=Empanelled",
+          "https://tpp-backend-3f7y.onrender.com/api/v1/company/companyType?companyType=Empanelled",
           {
             headers: {
               authorization: JSON.parse(localStorage.getItem("user")).token,
@@ -31,7 +31,7 @@ export default function AssignCandidate() {
           }
         );
         const extraRes = await axios.get(
-          "http://localhost:5000/api/v1/extra/all",
+          "https://tpp-backend-3f7y.onrender.com/api/v1/extra/all",
           {
             headers: {
               authorization: JSON.parse(localStorage.getItem("user")).token,
@@ -179,12 +179,12 @@ export default function AssignCandidate() {
           $in: candidate.interviewStatus,
         },
       });
-      if (candidate.language.length > 0)
-        query.push({
-          "languages.language": {
-            $in: candidate.language,
-          },
-        });
+    if (candidate.language.length > 0)
+      query.push({
+        "languages.language": {
+          $in: candidate.language,
+        },
+      });
     if (candidate.select.length > 0)
       query.push({
         select: {
@@ -249,8 +249,10 @@ export default function AssignCandidate() {
       if (candidate.all.length > 0)
         finalq = { skills: { $all: [...candidate.all] }, $or: [...query] };
       else finalq = { $or: [...query] };
-    else {if (candidate.all.length > 0)
-      finalq = { skills: { $all: [...candidate.all] }};}
+    else {
+      if (candidate.all.length > 0)
+        finalq = { skills: { $all: [...candidate.all] } };
+    }
 
     navigate("/AssignCandidateGrid", {
       replace: true,

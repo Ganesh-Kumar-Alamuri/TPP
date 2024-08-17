@@ -17,12 +17,12 @@ export default function CompanyDashBoard(props) {
   const access = !["Recruiter", "Teamlead", "Intern"].includes(
     props.user.employeeType
   );
-  
+
   React.useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5000/api/v1/company/counts",
+          "https://tpp-backend-3f7y.onrender.com/api/v1/company/counts",
           {
             headers: {
               authorization: JSON.parse(localStorage.getItem("user")).token,
@@ -41,7 +41,6 @@ export default function CompanyDashBoard(props) {
       }
     };
     fetchData();
-    
   }, []);
   return (
     <>

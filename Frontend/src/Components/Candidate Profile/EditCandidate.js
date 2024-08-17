@@ -35,7 +35,7 @@ export default function EditCandidate(props) {
   const { id } = useParams();
   const [searchParams] = useSearchParams();
   const editable = searchParams.get("edit") === "true";
-  const url = "http://localhost:5000/api/v1/candidate/" + id;
+  const url = "https://tpp-backend-3f7y.onrender.com/api/v1/candidate/" + id;
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -46,7 +46,7 @@ export default function EditCandidate(props) {
           },
         });
         const res = await axios.get(
-          "http://localhost:5000/api/v1/company/companyType?companyType=Empanelled",
+          "https://tpp-backend-3f7y.onrender.com/api/v1/company/companyType?companyType=Empanelled",
           {
             headers: {
               authorization: JSON.parse(localStorage.getItem("user")).token,
@@ -54,7 +54,7 @@ export default function EditCandidate(props) {
           }
         );
         const extraRes = await axios.get(
-          "http://localhost:5000/api/v1/extra/all",
+          "https://tpp-backend-3f7y.onrender.com/api/v1/extra/all",
           {
             headers: {
               authorization: JSON.parse(localStorage.getItem("user")).token,
@@ -128,7 +128,7 @@ export default function EditCandidate(props) {
     interviewStatus: null,
     select: null,
     EMP_ID: "",
-    rate:0,
+    rate: 0,
     onboardingDate: dayjs(new Date()),
     nextTrackingDate: dayjs(new Date()),
     l1Assessment: "",
@@ -160,29 +160,28 @@ export default function EditCandidate(props) {
       );
       flag = 1;
     }
-    
-      if (
-        ["TAC", "GOOD"].includes(candidate.l2Assessment) &&
-        !candidate.interviewStatus
-      ) {
-        toast.error("Missing Interview Status");
-        flag = 1;
-      }
-      if (
-        ["TAC", "GOOD"].includes(candidate.l2Assessment) &&
-        candidate.interviewStatus === "Select" &&
-        !candidate.select
-      ) {
-        toast.error("Missing Select Status");
-        flag = 1;
-      }
-    
-    
+
+    if (
+      ["TAC", "GOOD"].includes(candidate.l2Assessment) &&
+      !candidate.interviewStatus
+    ) {
+      toast.error("Missing Interview Status");
+      flag = 1;
+    }
+    if (
+      ["TAC", "GOOD"].includes(candidate.l2Assessment) &&
+      candidate.interviewStatus === "Select" &&
+      !candidate.select
+    ) {
+      toast.error("Missing Select Status");
+      flag = 1;
+    }
+
     if (flag) return;
     if (!["WD", "TAC", "GOOD"].includes(candidate.l1Assessment)) {
       setCandidate({
         ...candidate,
-        l2Assessment:null,
+        l2Assessment: null,
         companyId: null,
         roleId: null,
         rate: 0,
@@ -205,10 +204,10 @@ export default function EditCandidate(props) {
         nextTrackingDate: dayjs(new Date()),
       });
     }
-    
+
     try {
       const newCandidate = await axios.patch(
-        "http://localhost:5000/api/v1/candidate/" + id,
+        "https://tpp-backend-3f7y.onrender.com/api/v1/candidate/" + id,
         { ...candidate },
         {
           headers: {
@@ -217,7 +216,7 @@ export default function EditCandidate(props) {
         }
       );
       const skilldata = await axios.patch(
-        "http://localhost:5000/api/v1/extra/skills",
+        "https://tpp-backend-3f7y.onrender.com/api/v1/extra/skills",
         { data: [...new Set([...candidate.skills, ...skillsList])] },
         {
           headers: {
@@ -225,24 +224,24 @@ export default function EditCandidate(props) {
           },
         }
       );
-      toast.success("Candidate Edited Successfully")
+      toast.success("Candidate Edited Successfully");
       navigate("/");
     } catch (error) {}
   };
-const checkNumber = async (num) => {
-  try {
-    const res = await axios.get(
-      "http://localhost:5000/api/v1/candidate/mobile/" + num,
+  const checkNumber = async (num) => {
+    try {
+      const res = await axios.get(
+        "https://tpp-backend-3f7y.onrender.com/api/v1/candidate/mobile/" + num,
 
-      {
-        headers: {
-          authorization: JSON.parse(localStorage.getItem("user")).token,
-        },
-      }
-    );
-    if (res.data.status === true) toast.error("Number already exists");
-  } catch (error) {}
-};
+        {
+          headers: {
+            authorization: JSON.parse(localStorage.getItem("user")).token,
+          },
+        }
+      );
+      if (res.data.status === true) toast.error("Number already exists");
+    } catch (error) {}
+  };
   return (
     <Container>
       <Card

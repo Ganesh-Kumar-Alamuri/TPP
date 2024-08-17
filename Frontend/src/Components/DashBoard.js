@@ -18,7 +18,7 @@ export default function DashBoard() {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5000/api/v1/candidate/values/counts",
+          "https://tpp-backend-3f7y.onrender.com/api/v1/candidate/values/counts",
           {
             headers: {
               authorization: JSON.parse(localStorage.getItem("user")).token,

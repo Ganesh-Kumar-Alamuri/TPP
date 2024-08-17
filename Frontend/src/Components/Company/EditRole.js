@@ -61,7 +61,7 @@ export default function EditRole() {
     happens: "",
     experience: 0,
     mandatorySkills: [],
-    optionalSkills:[],
+    optionalSkills: [],
     qualification: [],
     shift: "",
     salary: 0,
@@ -81,7 +81,8 @@ export default function EditRole() {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5000/api/v1/company/company/" + companyId,
+          "https://tpp-backend-3f7y.onrender.com/api/v1/company/company/" +
+            companyId,
           {
             headers: {
               authorization: JSON.parse(localStorage.getItem("user")).token,
@@ -89,7 +90,10 @@ export default function EditRole() {
           }
         );
         const roleres = await axios.get(
-          "http://localhost:5000/api/v1/company/" + companyId + "/role/" + id,
+          "https://tpp-backend-3f7y.onrender.com/api/v1/company/" +
+            companyId +
+            "/role/" +
+            id,
           {
             headers: {
               authorization: JSON.parse(localStorage.getItem("user")).token,
@@ -97,7 +101,7 @@ export default function EditRole() {
           }
         );
         const extraRes = await axios.get(
-          "http://localhost:5000/api/v1/extra/all",
+          "https://tpp-backend-3f7y.onrender.com/api/v1/extra/all",
           {
             headers: {
               authorization: JSON.parse(localStorage.getItem("user")).token,
@@ -122,7 +126,10 @@ export default function EditRole() {
   const handleEditRole = async () => {
     try {
       const newRole = await axios.patch(
-        "http://localhost:5000/api/v1/company/" + companyId + "/role/" + id,
+        "https://tpp-backend-3f7y.onrender.com/api/v1/company/" +
+          companyId +
+          "/role/" +
+          id,
         { ...role },
         {
           headers: {
@@ -131,7 +138,7 @@ export default function EditRole() {
         }
       );
       const skilldata = await axios.patch(
-        "http://localhost:5000/api/v1/extra/skills",
+        "https://tpp-backend-3f7y.onrender.com/api/v1/extra/skills",
         {
           data: [
             ...new Set([
@@ -330,7 +337,10 @@ export default function EditRole() {
                     })
                   }
                   renderInput={(params) => (
-                    <TextField {...params} label="Mandatory Skill Requirement" />
+                    <TextField
+                      {...params}
+                      label="Mandatory Skill Requirement"
+                    />
                   )}
                 />
               </Grid>
@@ -394,11 +404,7 @@ export default function EditRole() {
                     })
                   }
                   renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      
-                      label="Qualification Requirement"
-                    />
+                    <TextField {...params} label="Qualification Requirement" />
                   )}
                 />
               </Grid>
@@ -486,11 +492,7 @@ export default function EditRole() {
                     })
                   }
                   renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      
-                      label="Company Location"
-                    />
+                    <TextField {...params} label="Company Location" />
                   )}
                 />
               </Grid>

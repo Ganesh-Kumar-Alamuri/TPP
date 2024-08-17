@@ -98,9 +98,9 @@ export default function AddCompany() {
         );
         flag = 1;
       }
-    if (flag) return;
+      if (flag) return;
       const res = await axios.post(
-        "http://localhost:5000/api/v1/company",
+        "https://tpp-backend-3f7y.onrender.com/api/v1/company",
         { ...company },
         {
           headers: {
@@ -108,24 +108,24 @@ export default function AddCompany() {
           },
         }
       );
-      toast.success("Company Added Successfully")
+      toast.success("Company Added Successfully");
       navigate(`/EditEmpanelled/${res.data._id}?edit=true`);
     } catch (error) {}
   };
-const checkNumber = async (num) => {
-  try {
-    const res = await axios.get(
-      "http://localhost:5000/api/v1/company/mobile/" + num,
+  const checkNumber = async (num) => {
+    try {
+      const res = await axios.get(
+        "https://tpp-backend-3f7y.onrender.com/api/v1/company/mobile/" + num,
 
-      {
-        headers: {
-          authorization: JSON.parse(localStorage.getItem("user")).token,
-        },
-      }
-    );
-    if (res.data.status === true) toast.error("Number already exists");
-  } catch (error) {}
-};
+        {
+          headers: {
+            authorization: JSON.parse(localStorage.getItem("user")).token,
+          },
+        }
+      );
+      if (res.data.status === true) toast.error("Number already exists");
+    } catch (error) {}
+  };
   return (
     <Container>
       <Card
@@ -199,7 +199,6 @@ const checkNumber = async (num) => {
                     label="HR Mobile Number"
                     variant="outlined"
                     value={x}
-                    
                     onChange={(e) => {
                       if (!/^\d*$/.test(e.target.value))
                         toast.warning("Only Number allowed in Mobile");

@@ -30,7 +30,7 @@ export default function ChangePassword(props) {
     }
     try {
       const res = await axios.patch(
-        "http://localhost:5000/api/v1/employee/" +
+        "https://tpp-backend-3f7y.onrender.com/api/v1/employee/" +
           props.user.userid +
           "/password",
         { ...passwords },
@@ -44,7 +44,7 @@ export default function ChangePassword(props) {
       if (res.sucess === false) setWarning(res.message);
       props.setUser({});
       localStorage.setItem("user", JSON.stringify({ token: "" }));
-      toast.success("Password Changed Successfully")
+      toast.success("Password Changed Successfully");
       navigate("/");
     } catch (error) {
       console.log(error);

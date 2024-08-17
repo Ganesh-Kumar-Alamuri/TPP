@@ -58,21 +58,17 @@ export default function CompanyGrid(props) {
   const navigate = useNavigate();
   useEffect(() => {
     var url =
-      "http://localhost:5000/api/v1/company/companyType/?companyType=" +
+      "https://tpp-backend-3f7y.onrender.com/api/v1/company/companyType/?companyType=" +
       searchParams.get("companyType");
-    if(!searchParams.has("companyType")){
-      url =
-        "http://localhost:5000/api/v1/company/companyType"
+    if (!searchParams.has("companyType")) {
+      url = "https://tpp-backend-3f7y.onrender.com/api/v1/company/companyType";
     }
     axios
-      .get(
-        url,
-        {
-          headers: {
-            authorization: JSON.parse(localStorage.getItem("user")).token,
-          },
-        }
-      )
+      .get(url, {
+        headers: {
+          authorization: JSON.parse(localStorage.getItem("user")).token,
+        },
+      })
       .then((res) => setTableData(res.data))
       .catch((err) => {
         window.alert(err.response.data.message);
@@ -297,13 +293,13 @@ export default function CompanyGrid(props) {
     filter: true,
     rowSelection: "multiple",
   };
-  const getSelectedData  = useCallback(()=>{
-return gridapi.current?.api.getSelectedRows().map((l) => flatten(l))
-  })
+  const getSelectedData = useCallback(() => {
+    return gridapi.current?.api.getSelectedRows().map((l) => flatten(l));
+  });
   const handleDelete = async (id) => {
     try {
       const company = axios.delete(
-        "http://localhost:5000/api/v1/company/" + id,
+        "https://tpp-backend-3f7y.onrender.com/api/v1/company/" + id,
         {
           headers: {
             authorization: JSON.parse(localStorage.getItem("user")).token,

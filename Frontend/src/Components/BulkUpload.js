@@ -36,7 +36,7 @@ function FileInput(props) {
 
   const handleCompanyFileUpload = (e) => {
     const file = e.target.files[0];
-    
+
     const reader = new FileReader();
 
     reader.onload = async (event) => {
@@ -56,24 +56,30 @@ function FileInput(props) {
         };
       });
       console.log(data);
-      const resp = axios
-        .post("http://localhost:5000/api/v1/company/bulkinsert", data, {
+      const resp = axios.post(
+        "https://tpp-backend-3f7y.onrender.com/api/v1/company/bulkinsert",
+        data,
+        {
           headers: {
             authorization: JSON.parse(localStorage.getItem("user")).token,
           },
-        })
-        toast.promise(resp, {
-          pending: "Data is Uploading. Please wait....",
-          success: "Company Data Uploaded",
-          error: {
-            render({ data }) {
-              
-              return "Could insert only "+ String(data.response.data.message.result.insertedCount)+" Rows" ;
-            },
+        }
+      );
+      toast.promise(resp, {
+        pending: "Data is Uploading. Please wait....",
+        success: "Company Data Uploaded",
+        error: {
+          render({ data }) {
+            return (
+              "Could insert only " +
+              String(data.response.data.message.result.insertedCount) +
+              " Rows"
+            );
           },
-        });
-        
-        e.target.value=null;
+        },
+      });
+
+      e.target.value = null;
     };
     reader.readAsBinaryString(file);
   };
@@ -96,27 +102,30 @@ function FileInput(props) {
         DOB = !DOB ? new Date() : DOB;
         return { gender, documentation, status, DOJ, DOB, ...rest };
       });
-      const resp= axios
-        .post("http://localhost:5000/api/v1/employee/bulkinsert", data, {
+      const resp = axios.post(
+        "https://tpp-backend-3f7y.onrender.com/api/v1/employee/bulkinsert",
+        data,
+        {
           headers: {
             authorization: JSON.parse(localStorage.getItem("user")).token,
           },
-        })
-        toast.promise(resp, {
-          pending: "Data is Uploading. Please wait....",
-          success: "Employee Data Uploaded",
-          error: {
-            render({ data }) {
-              return (
-                "Could insert only " +
-                String(data.response.data.message.result.insertedCount) +
-                " Rows"
-              );
-            },
+        }
+      );
+      toast.promise(resp, {
+        pending: "Data is Uploading. Please wait....",
+        success: "Employee Data Uploaded",
+        error: {
+          render({ data }) {
+            return (
+              "Could insert only " +
+              String(data.response.data.message.result.insertedCount) +
+              " Rows"
+            );
           },
-        });
-        
-         e.target.value = null;
+        },
+      });
+
+      e.target.value = null;
     };
     reader.readAsBinaryString(file);
   };
@@ -190,29 +199,31 @@ function FileInput(props) {
         };
       });
       console.log(data);
-      
-        const resp = axios
-        .post("http://localhost:5000/api/v1/candidate/bulkinsert", data, {
+
+      const resp = axios.post(
+        "https://tpp-backend-3f7y.onrender.com/api/v1/candidate/bulkinsert",
+        data,
+        {
           headers: {
             authorization: JSON.parse(localStorage.getItem("user")).token,
           },
-        })
-        toast.promise(resp, {
-          pending: "Data is Uploading. Please wait....",
-          success: "Candidate Data Uploaded",
-          error: {
-            render({ data }) {
-              return (
-                "Could insert only " +
-                String(data.response.data.message.result.insertedCount) +
-                " Rows"
-              );
-            },
+        }
+      );
+      toast.promise(resp, {
+        pending: "Data is Uploading. Please wait....",
+        success: "Candidate Data Uploaded",
+        error: {
+          render({ data }) {
+            return (
+              "Could insert only " +
+              String(data.response.data.message.result.insertedCount) +
+              " Rows"
+            );
           },
-        });
-        
-       e.target.value = null;
-        
+        },
+      });
+
+      e.target.value = null;
     };
     reader.readAsBinaryString(file);
   };

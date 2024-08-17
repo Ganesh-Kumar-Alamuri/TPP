@@ -61,7 +61,7 @@ export default function CandidateGrid(props) {
 
   const [searchParams] = useSearchParams();
   var url =
-    "http://localhost:5000/api/v1/candidate/data/" +
+    "https://tpp-backend-3f7y.onrender.com/api/v1/candidate/data/" +
     searchParams.get("type") +
     "?";
 
@@ -82,14 +82,11 @@ export default function CandidateGrid(props) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(
-          url,
-          {
-            headers: {
-              authorization: JSON.parse(localStorage.getItem("user")).token,
-            },
-          }
-        );
+        const res = await axios.get(url, {
+          headers: {
+            authorization: JSON.parse(localStorage.getItem("user")).token,
+          },
+        });
 
         setTableData(res.data);
       } catch (error) {}
@@ -165,7 +162,6 @@ export default function CandidateGrid(props) {
                   onClick={() =>
                     navigate(`/EditCandidate/${props.data._id}?edit=true`)
                   }
-                  
                 >
                   <BorderColorTwoToneIcon />
                 </IconButton>
@@ -227,13 +223,13 @@ export default function CandidateGrid(props) {
     editable: false,
     cellEditor: false,
     filter: true,
-    
+
     rowSelection: "multiple",
   };
   const handleDelete = async (id) => {
     try {
       const company = axios.delete(
-        "http://localhost:5000/api/v1/candidate/" + id,
+        "https://tpp-backend-3f7y.onrender.com/api/v1/candidate/" + id,
         {
           headers: {
             authorization: JSON.parse(localStorage.getItem("user")).token,
@@ -274,7 +270,6 @@ export default function CandidateGrid(props) {
                 var node = gridapi?.current.api.getRowNode(i);
                 node.setSelected(true);
               }
-              
             }}
           >
             Select

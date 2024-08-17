@@ -30,7 +30,7 @@ export default function SearchProfile(props) {
   const handleSearch = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/v1/candidate/search",
+        "https://tpp-backend-3f7y.onrender.com/api/v1/candidate/search",
         { ...searchParams },
         {
           headers: {

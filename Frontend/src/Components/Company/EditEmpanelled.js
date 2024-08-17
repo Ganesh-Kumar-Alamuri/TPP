@@ -79,7 +79,7 @@ export default function EditEmpanelled(props) {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5000/api/v1/company/company/" + id,
+          "https://tpp-backend-3f7y.onrender.com/api/v1/company/company/" + id,
           {
             headers: {
               authorization: JSON.parse(localStorage.getItem("user")).token,
@@ -385,7 +385,7 @@ export default function EditEmpanelled(props) {
       if (flag) return;
       delete company.__v;
       const newRole = await axios.patch(
-        "http://localhost:5000/api/v1/company/company/" + id,
+        "https://tpp-backend-3f7y.onrender.com/api/v1/company/company/" + id,
         { ...company, roles: company.roles.map((r) => r._id) },
         {
           headers: {
@@ -548,7 +548,7 @@ export default function EditEmpanelled(props) {
                       }}
                     />
                   </Grid>
-              <Grid item xs={6}>
+                  <Grid item xs={6}>
                     <TextField
                       id="empanelled"
                       select

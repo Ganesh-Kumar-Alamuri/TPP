@@ -39,7 +39,7 @@ export default function AddCandidate(props) {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5000/api/v1/company/companyType?companyType=Empanelled",
+          "https://tpp-backend-3f7y.onrender.com/api/v1/company/companyType?companyType=Empanelled",
           {
             headers: {
               authorization: JSON.parse(localStorage.getItem("user")).token,
@@ -47,7 +47,7 @@ export default function AddCandidate(props) {
           }
         );
         const extraRes = await axios.get(
-          "http://localhost:5000/api/v1/extra/all",
+          "https://tpp-backend-3f7y.onrender.com/api/v1/extra/all",
           {
             headers: {
               authorization: JSON.parse(localStorage.getItem("user")).token,
@@ -135,37 +135,47 @@ export default function AddCandidate(props) {
   };
 
   const handleAddCandidate = async () => {
-    
     try {
       var flag = 0;
-    if (!candidate.fullName) {
-      toast.error("Full Name is Required");
-      flag = 1;
-    }
-    if (candidate.mobile.includes("")) {
-      const ind = candidate.mobile.indexOf("");
-      toast.error(
-        "Missing " + (ind == 0
-          ? "1st"
-          : (ind == 1 ? "2nd" : ind == 2 ? "3rd" : ind+1 + "th") )+ " Mobile Number"
-      );
-      flag = 1;
-    }
-    
-    
-      if(["TAC", "GOOD"].includes(candidate.l2Assessment) && !candidate.interviewStatus){
-        toast.error("Missing Interview Status")
-        flag=1
+      if (!candidate.fullName) {
+        toast.error("Full Name is Required");
+        flag = 1;
       }
-      if(["TAC", "GOOD"].includes(candidate.l2Assessment) && candidate.interviewStatus === "Select" && !candidate.select){
-        toast.error("Missing Select Status")
-        flag=1
+      if (candidate.mobile.includes("")) {
+        const ind = candidate.mobile.indexOf("");
+        toast.error(
+          "Missing " +
+            (ind == 0
+              ? "1st"
+              : ind == 1
+              ? "2nd"
+              : ind == 2
+              ? "3rd"
+              : ind + 1 + "th") +
+            " Mobile Number"
+        );
+        flag = 1;
       }
 
-    
-    if (flag) return;
+      if (
+        ["TAC", "GOOD"].includes(candidate.l2Assessment) &&
+        !candidate.interviewStatus
+      ) {
+        toast.error("Missing Interview Status");
+        flag = 1;
+      }
+      if (
+        ["TAC", "GOOD"].includes(candidate.l2Assessment) &&
+        candidate.interviewStatus === "Select" &&
+        !candidate.select
+      ) {
+        toast.error("Missing Select Status");
+        flag = 1;
+      }
+
+      if (flag) return;
       const newCandidate = await axios.post(
-        "http://localhost:5000/api/v1/candidate",
+        "https://tpp-backend-3f7y.onrender.com/api/v1/candidate",
         {
           ...candidate,
           assignedEmployee: props.user.userid,
@@ -178,7 +188,7 @@ export default function AddCandidate(props) {
         }
       );
       const skilldata = await axios.patch(
-        "http://localhost:5000/api/v1/extra/skills",
+        "https://tpp-backend-3f7y.onrender.com/api/v1/extra/skills",
         { data: [...new Set([...candidate.skills, ...skillsList])] },
         {
           headers: {
@@ -186,7 +196,7 @@ export default function AddCandidate(props) {
           },
         }
       );
-      toast.success("Candidate Added Successfully")
+      toast.success("Candidate Added Successfully");
       navigate("/");
     } catch (error) {
       console.log(error);
@@ -196,7 +206,7 @@ export default function AddCandidate(props) {
   const checkNumber = async (num) => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/v1/candidate/mobile/" + num,
+        "https://tpp-backend-3f7y.onrender.com/api/v1/candidate/mobile/" + num,
 
         {
           headers: {
@@ -230,7 +240,6 @@ export default function AddCandidate(props) {
         <CardContent>
           <Grid container rowSpacing={2} columnSpacing={1}>
             <Grid item xs={12}>
-              
               <TextField
                 id="candiateName"
                 label="Full Name"
@@ -238,15 +247,12 @@ export default function AddCandidate(props) {
                 fullWidth
                 required
                 value={candidate.fullName}
-                
                 inputProps={{
                   pattern: "[A-Za-z ]+",
                 }}
-                
                 onChange={(e) => {
                   setCandidate({ ...candidate, fullName: e.target.value });
                   if (!e.target.validity.valid) {
-                  
                     toast.warning("Only Alphabets and Space allowed in Name!");
                   }
                 }}
@@ -262,7 +268,6 @@ export default function AddCandidate(props) {
                     variant="outlined"
                     value={x}
                     required
-                    
                     onChange={(e) => {
                       if (!/^\d*$/.test(e.target.value))
                         toast.warning("Only Number allowed in Mobile");
@@ -337,7 +342,7 @@ export default function AddCandidate(props) {
                       candidate.email[i] = e.target.value;
                       setCandidate({ ...candidate, email: candidate.email });
                     }}
-                    onBlur={(e)=>{
+                    onBlur={(e) => {
                       if (
                         !/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(
                           e.target.value

@@ -18,23 +18,22 @@ export default function AccountDashBoard() {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5000/api/v1/employee/counts/counts",
+          "https://tpp-backend-3f7y.onrender.com/api/v1/employee/counts/counts",
           {
             headers: {
               authorization: JSON.parse(localStorage.getItem("user")).token,
             },
-           }
+          }
         );
-        
+
         if (!res) console.log("Something went wrong");
         const counts = {};
         for (const c of res.data) {
           counts[c["_id"]] = c["count"];
         }
-        
+
         setData(counts);
       } catch (error) {
-        
         console.log(error);
       }
     };
@@ -128,7 +127,9 @@ export default function AccountDashBoard() {
                     textTransform: "uppercase",
                     boxShadow: "4px 4px 8px #090979",
                   }}
-                  onClick={()=>navigate("/AccountGrid?employeeType=Recruiter")}
+                  onClick={() =>
+                    navigate("/AccountGrid?employeeType=Recruiter")
+                  }
                 >
                   <CardHeader
                     style={{
@@ -180,7 +181,7 @@ export default function AccountDashBoard() {
                     textTransform: "uppercase",
                     boxShadow: "4px 4px 8px #090979",
                   }}
-                  onClick={()=>navigate("/AccountGrid?employeeType=Teamlead")}
+                  onClick={() => navigate("/AccountGrid?employeeType=Teamlead")}
                 >
                   <CardHeader
                     style={{
@@ -232,7 +233,7 @@ export default function AccountDashBoard() {
                     textTransform: "uppercase",
                     boxShadow: "4px 4px 8px #090979",
                   }}
-                  onClick={()=>navigate("/AccountGrid?employeeType=Manager")}
+                  onClick={() => navigate("/AccountGrid?employeeType=Manager")}
                 >
                   <CardHeader
                     style={{
@@ -284,7 +285,7 @@ export default function AccountDashBoard() {
                     textTransform: "uppercase",
                     boxShadow: "4px 4px 8px #090979",
                   }}
-                  onClick={()=>navigate("/AccountGrid?employeeType=Intern")}
+                  onClick={() => navigate("/AccountGrid?employeeType=Intern")}
                 >
                   <CardHeader
                     style={{

@@ -100,19 +100,23 @@ export default function AddAccount() {
     if (employee.mobile.includes("")) {
       const ind = employee.mobile.indexOf("");
       toast.error(
-        "Missing " + (ind == 0
-          ? "1st"
-          : (ind == 1 ? "2nd" : ind == 2 ? "3rd" : ind+1 + "th") )+ " Mobile Number"
+        "Missing " +
+          (ind == 0
+            ? "1st"
+            : ind == 1
+            ? "2nd"
+            : ind == 2
+            ? "3rd"
+            : ind + 1 + "th") +
+          " Mobile Number"
       );
       flag = 1;
     }
-    
-    
+
     if (flag) return;
     try {
-      
       const res = await axios.post(
-        "http://localhost:5000/api/v1/employee",
+        "https://tpp-backend-3f7y.onrender.com/api/v1/employee",
         { ...employee },
         {
           headers: {
@@ -127,7 +131,7 @@ export default function AddAccount() {
   const checkId = async (id) => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/v1/employee/id/" + id,
+        "https://tpp-backend-3f7y.onrender.com/api/v1/employee/id/" + id,
 
         {
           headers: {
@@ -138,34 +142,34 @@ export default function AddAccount() {
       if (res.data.status === true) toast.error("Employee ID already exists");
     } catch (error) {}
   };
-    const checkNumber = async (num) => {
-      try {
-        const res = await axios.get(
-          "http://localhost:5000/api/v1/employee/mobile/" + num,
+  const checkNumber = async (num) => {
+    try {
+      const res = await axios.get(
+        "https://tpp-backend-3f7y.onrender.com/api/v1/employee/mobile/" + num,
 
-          {
-            headers: {
-              authorization: JSON.parse(localStorage.getItem("user")).token,
-            },
-          }
-        );
-        if (res.data.status === true) toast.error("Number already exists");
-      } catch (error) {}
-    };
-    const checkMail = async (num) => {
-      try {
-        const res = await axios.get(
-          "http://localhost:5000/api/v1/employee/mail/" + num,
+        {
+          headers: {
+            authorization: JSON.parse(localStorage.getItem("user")).token,
+          },
+        }
+      );
+      if (res.data.status === true) toast.error("Number already exists");
+    } catch (error) {}
+  };
+  const checkMail = async (num) => {
+    try {
+      const res = await axios.get(
+        "https://tpp-backend-3f7y.onrender.com/api/v1/employee/mail/" + num,
 
-          {
-            headers: {
-              authorization: JSON.parse(localStorage.getItem("user")).token,
-            },
-          }
-        );
-        if (res.data.status === true) toast.error("Email already exists");
-      } catch (error) {}
-    };
+        {
+          headers: {
+            authorization: JSON.parse(localStorage.getItem("user")).token,
+          },
+        }
+      );
+      if (res.data.status === true) toast.error("Email already exists");
+    } catch (error) {}
+  };
   return (
     <Container>
       <Card
@@ -313,7 +317,7 @@ export default function AddAccount() {
                     toast.warning("Not a valid Email");
                     return;
                   }
-                  checkMail(e.target.value)
+                  checkMail(e.target.value);
                 }}
               />
             </Grid>

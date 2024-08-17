@@ -54,7 +54,7 @@ export default function AssignCandidateGrid(props) {
   const handleDelete = async (id) => {
     try {
       const company = axios.delete(
-        "http://localhost:5000/api/v1/candidate/" + id,
+        "https://tpp-backend-3f7y.onrender.com/api/v1/candidate/" + id,
         {
           headers: {
             authorization: JSON.parse(localStorage.getItem("user")).token,
@@ -205,10 +205,10 @@ export default function AssignCandidateGrid(props) {
   React.useEffect(() => {
     const fetchData = async () => {
       console.log(location.state.query);
-      
+
       try {
         const candidates = await axios.post(
-          "http://localhost:5000/api/v1/candidate/candidate/assignSearch",
+          "https://tpp-backend-3f7y.onrender.com/api/v1/candidate/candidate/assignSearch",
           { query: { ...location.state.query } },
           {
             headers: {
@@ -217,7 +217,7 @@ export default function AssignCandidateGrid(props) {
           }
         );
         const empres = await axios.get(
-          "http://localhost:5000/api/v1/employee",
+          "https://tpp-backend-3f7y.onrender.com/api/v1/employee",
           {
             headers: {
               authorization: JSON.parse(localStorage.getItem("user")).token,
@@ -264,7 +264,7 @@ export default function AssignCandidateGrid(props) {
     }
     try {
       const candres = await axios.post(
-        "http://localhost:5000/api/v1/candidate/candidate/assign",
+        "https://tpp-backend-3f7y.onrender.com/api/v1/candidate/candidate/assign",
         {
           list: assignedData,
         },
