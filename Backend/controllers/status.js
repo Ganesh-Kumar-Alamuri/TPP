@@ -3,6 +3,7 @@ const Employee = require("../models/employee");
 const { UnauthenticatedError } = require("../errors");
 const status = async (req, res) => {
   const user = await Employee.findById({_id:req.user.userid})
+  console.log(user)
   if(!user.status)
     throw new UnauthenticatedError("Access Denied by Admin");
   req.user = {

@@ -15,6 +15,8 @@ const login = async (req, res) => {
   }
 
   const user = await Employee.findOne({ email: userMail });
+  console.log(user);
+  
   if (!user) {
     throw new NotFoundError("User with given mail not found");
   }
