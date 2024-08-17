@@ -5,7 +5,7 @@ const ProtectedRoute = ({ children, user, setUser }) => {
   const [check, setCheck] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
-    const token = JSON.parse(localStorage.getItem("user")).token;
+    const token = JSON.parse(localStorage.getItem("user"))?.token;
     if (!token) navigate("/login");
     const fetchData = async () => {
       try {
