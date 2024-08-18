@@ -13,9 +13,6 @@
   }
 }
 
-* {
-  overflow-y: hidden;
-}
 
 .ag-overlay-loading-center{
   display: flex;
